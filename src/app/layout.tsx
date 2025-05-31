@@ -1,15 +1,22 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Cinzel, Mulish, Noto_Sans_Javanese } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const cinzel = Cinzel({
+  variable: "--font-cinzel",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const mulish = Mulish({
+  variable: "--font-mulish",
   subsets: ["latin"],
+});
+
+const javanese = Noto_Sans_Javanese({
+  variable: "--font-javanese",
+  subsets: ["javanese"],
+  display: "swap",
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
@@ -25,10 +32,23 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${cinzel.variable} ${mulish.variable} ${javanese.variable} antialiased`}
       >
+        <Navbar />
         {children}
       </body>
     </html>
+  );
+}
+
+function Navbar() {
+  return (
+    <div className="sticky top-0 z-10 mt-8">
+      <div className="flex justify-center w-full items-center absolute">
+        <h1 className="text-4xl bg-[var(--red)] rounded-full p-6 border-[var(--yellow)] border-4">
+          ハク
+        </h1>
+      </div>
+    </div>
   );
 }
