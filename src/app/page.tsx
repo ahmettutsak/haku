@@ -7,11 +7,15 @@ export default function Home() {
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
   const [selectedSeats, setSelectedSeats] = useState<number | null>(null);
   const today = new Date().getDate();
+  const now = new Date();
+  const totalDays = new Date(
+    now.getFullYear(),
+    now.getMonth() + 1,
+    0
+  ).getDate();
 
-  const daysInMonth = Array.from(
-    { length: new Date().getDate() },
-    (_, i) => i + 1
-  );
+  const daysInMonth = Array.from({ length: totalDays }, (_, i) => i + 1);
+
   return (
     <div className="flex flex-col items-center justify-center">
       <Image
@@ -31,56 +35,65 @@ export default function Home() {
         <h1 className="text-9xl font-mono">HAKU</h1>
       </motion.div>
       <div className="h-screen"></div>
-      <div className="h-screen grid grid-cols-3 grid-rows-3 gap-4 p-8 w-full">
-        <div className="grid grid-cols-2 grid-rows-2 p-12 h-full">
-          <div className="col-span-2">
-            <h1 className="text-7xl font-mono">Haku</h1>
-            <p className="text-3xl font-sans text-gray-500">
+      <div className="min-h-screen grid grid-cols-1 md:grid-cols-3 md:grid-rows-3 gap-4 p-4 md:p-8 w-full">
+        {/* Text Block */}
+        <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 p-4 md:p-12 h-full col-span-1 row-span-1 md:row-span-1">
+          <div className="col-span-1 md:col-span-2 mb-4 md:mb-0">
+            <h1 className="text-5xl md:text-7xl font-mono">Haku</h1>
+            <p className="text-xl md:text-3xl font-sans text-gray-500">
               Purity in Every Bite
             </p>
           </div>
-          <div className="col-span-2 flex items-end-safe flex-col justify-end-safe">
-            <h1 className="text-7xl font-mono">ハク</h1>
-            <p className="text-3xl font-sans text-gray-500">一口ごとの純粋さ</p>
+          <div className="col-span-1 md:col-span-2 flex flex-col items-end md:items-end justify-end mt-6 md:mt-0">
+            <h1 className="text-5xl md:text-7xl font-mono">ハク</h1>
+            <p className="text-xl md:text-3xl font-sans text-gray-500">
+              一口ごとの純粋さ
+            </p>
           </div>
         </div>
-        <div className="flex flex-col justify-center col-span-1 row-span-3 h-full">
+
+        {/* Main Images */}
+        <div className="flex flex-col justify-center h-full col-span-1 md:row-span-3">
           <Image
             src={"/sushi2.jpg"}
             alt="Sushi"
             width={3500}
             height={3500}
-            className="w-full h-full object-cover rounded-lg "
+            className="w-full h-[250px] md:h-full object-cover rounded-lg"
           />
         </div>
-        <div className="flex flex-col row-span-3 justify-center col-span-1 h-full">
+
+        <div className="flex flex-col justify-center h-full col-span-1 md:row-span-3">
           <Image
             src={"/sushi3.jpg"}
             alt="Sushi"
             width={3500}
             height={3500}
-            className="w-full h-full object-cover rounded-lg "
+            className="w-full h-[250px] md:h-full object-cover rounded-lg"
           />
         </div>
-        <div className="flex flex-col justify-center col-span-1 h-full">
+
+        <div className="flex flex-col justify-center h-full col-span-1">
           <Image
             src={"/sushi1.jpg"}
             alt="Sushi"
             width={3500}
             height={3500}
-            className="w-full h-full object-cover rounded-lg"
+            className="w-full h-[200px] md:h-full object-cover rounded-lg"
           />
         </div>
-        <div className="flex flex-col  justify-center h-full">
+
+        <div className="flex flex-col justify-center h-full col-span-1">
           <Image
             src={"/sushi4.jpg"}
             alt="Sushi"
             width={3500}
             height={3500}
-            className="w-full h-full object-cover rounded-lg "
+            className="w-full h-[200px] md:h-full object-cover rounded-lg"
           />
         </div>
       </div>
+
       <div className="min-h-screen p-8 flex items-start justify-start flex-col w-full gap-12">
         <h1 className="text-3xl font-mono mt-12">
           Timeless Favorites, Crafted to Perfection
@@ -198,7 +211,7 @@ export default function Home() {
                     {daysInMonth.map((day) => (
                       <div
                         key={day}
-                        className={`cursor-pointer border border-[var(--yellow)] rounded-lg py-2 px-4 text-center transition ${
+                        className={`cursor-pointer border border-[var(--yellow)] rounded-lg py-2 px-4 flex items-center justify-center transition ${
                           selectedDay === day
                             ? "bg-[var(--yellow)] text-black font-bold"
                             : day < today
@@ -218,7 +231,7 @@ export default function Home() {
                   <label className="block text-lg font-sans text-[var(--yellow)] mb-2">
                     Select Your Seat
                   </label>
-                  <div className="flex gap-4">
+                  <div className="flex gap-4 flex-wrap">
                     {[1, 2, 3, 4, 5, 6].map((seat) => (
                       <div
                         key={seat}
@@ -236,10 +249,24 @@ export default function Home() {
                 </div>
 
                 {/* Display Selection */}
-                <div className="text-xl font-mono text-[var(--yellow)]">
-                  {selectedDay && <p>Selected Day: {selectedDay}</p>}
-                  {selectedSeats && <p>Selected Seats: {selectedSeats}</p>}
-                </div>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => {
+                    if (selectedDay && selectedSeats) {
+                      alert(
+                        `Reservation made for ${selectedSeats} seat(s) on day ${selectedDay}.`
+                      );
+                      setSelectedDay(null);
+                      setSelectedSeats(null);
+                    }
+                  }}
+                  className="flex justify-center items-center bg-[var(--yellow)] rounded h-full p-6 cursor-pointer"
+                >
+                  <h1 className="text-black text-2xl font-mono select-none">
+                    Reserve Your Experience
+                  </h1>
+                </motion.div>
               </div>
             </div>
           </div>
@@ -254,6 +281,14 @@ export default function Home() {
           />
         </div>
       </div>
+      <footer>
+        <div className="flex flex-col justify-center items-center py-8 bg-black text-white">
+          <p className="text-lg font-sans">
+            © {new Date().getFullYear()} Haku. All rights reserved.
+          </p>
+          <p className="text-lg font-sans">Made by Ahmet Tutsak</p>
+        </div>
+      </footer>
     </div>
   );
 }
