@@ -35,7 +35,7 @@ export default function Home() {
         <h1 className="text-9xl font-mono">HAKU</h1>
       </motion.div>
       <div className="h-screen"></div>
-      <div className="min-h-screen grid grid-cols-1 md:grid-cols-3 md:grid-rows-3 gap-4 p-4 md:p-8 w-full">
+      <div className="h-screen grid grid-cols-1 md:grid-cols-3 md:grid-rows-3 gap-4 p-4 md:p-8 w-full">
         {/* Text Block */}
         <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 p-4 md:p-12 h-full col-span-1 row-span-1 md:row-span-1">
           <div className="col-span-1 md:col-span-2 mb-4 md:mb-0">
@@ -69,7 +69,7 @@ export default function Home() {
             alt="Sushi"
             width={3500}
             height={3500}
-            className="w-full h-[250px] md:h-full object-cover rounded-lg"
+            className="w-full h-[250px] md:h-full  object-cover rounded-lg"
           />
         </div>
 
@@ -94,7 +94,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="min-h-screen p-8 flex items-start justify-start flex-col w-full gap-12">
+      <div className="min-h-screen p-8 flex items-start justify-start flex-col w-full gap-12 mt-96 md:mt-0">
         <h1 className="text-3xl font-mono mt-12">
           Timeless Favorites, Crafted to Perfection
         </h1>
@@ -317,6 +317,7 @@ const ImageCard = ({
   <motion.div
     initial="rest"
     whileHover="hover"
+    whileTap="hover"
     animate="rest"
     className="relative overflow-hidden rounded-2xl"
   >

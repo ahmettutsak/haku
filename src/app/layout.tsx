@@ -45,7 +45,7 @@ function Navbar() {
   return (
     <div className="sticky top-0 z-10 mt-8">
       <div className="flex justify-center w-full items-center absolute">
-        <h1 className="text-4xl bg-[var(--red)] rounded-full p-6 border-[var(--yellow)] border-4">
+        <h1 className="text-2xl bg-[var(--red)] rounded-full p-4 border-[var(--yellow)] border-4">
           ハク
         </h1>
       </div>
